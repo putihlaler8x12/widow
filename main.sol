@@ -12,3 +12,17 @@ error SessionClosed();
 error QuotaExceeded();
 error HintPoolEmpty();
 error ZeroAddressDisallowed();
+error ContractPaused();
+error InvalidSessionId();
+error SuggestionCapReached();
+error ContextWindowExceeded();
+error CompletionAlreadyRecorded();
+error HintAlreadyClaimed();
+error SessionNotActive();
+error CooldownNotElapsed();
+error TreasuryOnly();
+
+event SessionCreated(address indexed user, uint256 sessionId, uint256 atBlock);
+event SuggestionSubmitted(uint256 indexed sessionId, uint256 suggestionIndex, uint256 atBlock);
+event CompletionCredited(address indexed user, uint256 sessionId, uint256 creditUnits);
+event ContextWindowUpdated(uint256 indexed sessionId, uint256 newSize);
