@@ -40,3 +40,17 @@ uint256 constant COOLDOWN_BLOCKS = 23;
 uint256 constant HINT_FEE_UNITS = 11;
 uint256 constant MAX_HINTS_PER_SESSION = 7;
 uint256 constant SESSION_LIFETIME_BLOCKS = 1500;
+uint256 constant TREASURY_SHARE_BPS = 90;
+uint256 constant ORACLE_SHARE_BPS = 10;
+
+contract Widow {
+    struct SessionRecord {
+        address user;
+        uint256 createdAtBlock;
+        uint256 suggestionCount;
+        uint256 completionCredits;
+        uint256 contextTokens;
+        uint256 hintsClaimed;
+        bool closed;
+    }
+
