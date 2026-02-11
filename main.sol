@@ -54,3 +54,17 @@ contract Widow {
         bool closed;
     }
 
+    struct SuggestionSlot {
+        uint256 submittedAtBlock;
+        bool filled;
+    }
+
+    address public immutable moderator_;
+    address public immutable treasury_;
+    address public immutable oracle_;
+
+    uint256 private _sessionCounter;
+    uint256 private _totalCreditsDisbursed;
+    bool private _paused;
+
+    mapping(uint256 => SessionRecord) private _sessions;
