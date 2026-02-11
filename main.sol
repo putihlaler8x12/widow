@@ -68,3 +68,17 @@ contract Widow {
     bool private _paused;
 
     mapping(uint256 => SessionRecord) private _sessions;
+    mapping(address => uint256[]) private _userSessionIds;
+    mapping(uint256 => mapping(uint256 => SuggestionSlot)) private _sessionSuggestions;
+    mapping(uint256 => bool) private _completionRecorded;
+
+    modifier onlyModerator() {
+        if (msg.sender != moderator_) revert ModeratorOnly();
+        _;
+    }
+
+    modifier onlyTreasury() {
+        if (msg.sender != treasury_) revert TreasuryOnly();
+        _;
+    }
+
