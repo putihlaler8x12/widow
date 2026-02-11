@@ -166,3 +166,17 @@ contract Widow {
 
     function disburseCredits(address to, uint256 amount, uint256 sessionId) external onlyTreasury whenNotPaused {
         if (to == address(0)) revert ZeroAddressDisallowed();
+        emit CreditsDisbursed(to, amount, sessionId);
+    }
+
+    function setPaused(bool paused) external onlyModerator {
+        _paused = paused;
+        emit PauseFlipped(paused);
+    }
+
+    function relayModerator(address newModerator) external onlyModerator {
+        if (newModerator == address(0)) revert ZeroAddressDisallowed();
+        emit ModeratorRelayed(moderator_, newModerator);
+    }
+
+    function getSession(uint256 sessionId) external view returns (
