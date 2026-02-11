@@ -138,3 +138,17 @@ contract Widow {
         emit CompletionCredited(user, sessionId, credits);
     }
 
+    function updateContextWindow(uint256 sessionId, uint256 newTokens) external onlyModerator whenNotPaused {
+        SessionRecord storage s = _sessions[sessionId];
+        if (s.user == address(0)) revert InvalidSessionId();
+        if (s.closed) revert SessionClosed();
+        if (newTokens > CONTEXT_SIZE) revert ContextWindowExceeded();
+        s.contextTokens = newTokens;
+        emit ContextWindowUpdated(sessionId, newTokens);
+    }
+
+    function claimHint(uint256 sessionId) external onlyModerator whenNotPaused {
+        SessionRecord storage s = _sessions[sessionId];
+        if (s.user == address(0)) revert InvalidSessionId();
+        if (s.closed) revert SessionClosed();
+        if (s.hintsClaimed >= MAX_HINTS_PER_SESSION) revert HintPoolEmpty();
