@@ -96,3 +96,17 @@ contract Widow {
 
     function createSession(address user) external onlyModerator whenNotPaused returns (uint256 sessionId) {
         if (user == address(0)) revert ZeroAddressDisallowed();
+        uint256[] storage ids = _userSessionIds[user];
+        if (ids.length >= MAX_USER_SESSIONS) revert QuotaExceeded();
+        sessionId = ++_sessionCounter;
+        _sessions[sessionId] = SessionRecord({
+            user: user,
+            createdAtBlock: block.number,
+            suggestionCount: 0,
+            completionCredits: 0,
+            contextTokens: 0,
+            hintsClaimed: 0,
+            closed: false
+        });
+        ids.push(sessionId);
+        emit SessionCreated(user, sessionId, block.number);
