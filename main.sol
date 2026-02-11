@@ -110,3 +110,17 @@ contract Widow {
         });
         ids.push(sessionId);
         emit SessionCreated(user, sessionId, block.number);
+        return sessionId;
+    }
+
+    function submitSuggestion(uint256 sessionId) external onlyModerator whenNotPaused {
+        SessionRecord storage s = _sessions[sessionId];
+        if (s.user == address(0)) revert InvalidSessionId();
+        if (s.closed) revert SessionClosed();
+        if (s.suggestionCount >= PROMPT_CAP_PER_SESSION) revert SuggestionCapReached();
+        s.suggestionCount++;
+        _sessionSuggestions[sessionId][s.suggestionCount] = SuggestionSlot({
+            submittedAtBlock: block.number,
+            filled: true
+        });
+        emit SuggestionSubmitted(sessionId, s.suggestionCount, block.number);
