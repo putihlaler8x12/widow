@@ -152,3 +152,17 @@ contract Widow {
         if (s.user == address(0)) revert InvalidSessionId();
         if (s.closed) revert SessionClosed();
         if (s.hintsClaimed >= MAX_HINTS_PER_SESSION) revert HintPoolEmpty();
+        s.hintsClaimed++;
+        emit HintReserved(sessionId, s.hintsClaimed);
+    }
+
+    function closeSession(uint256 sessionId) external onlyModerator {
+        SessionRecord storage s = _sessions[sessionId];
+        if (s.user == address(0)) revert InvalidSessionId();
+        if (s.closed) revert SessionClosed();
+        s.closed = true;
+        emit SessionClosed(sessionId, s.user);
+    }
+
+    function disburseCredits(address to, uint256 amount, uint256 sessionId) external onlyTreasury whenNotPaused {
+        if (to == address(0)) revert ZeroAddressDisallowed();
