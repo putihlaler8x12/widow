@@ -124,3 +124,17 @@ contract Widow {
             filled: true
         });
         emit SuggestionSubmitted(sessionId, s.suggestionCount, block.number);
+    }
+
+    function recordCompletion(uint256 sessionId, address user) external onlyModerator whenNotPaused {
+        SessionRecord storage s = _sessions[sessionId];
+        if (s.user == address(0)) revert InvalidSessionId();
+        if (s.closed) revert SessionClosed();
+        if (_completionRecorded[sessionId]) revert CompletionAlreadyRecorded();
+        _completionRecorded[sessionId] = true;
+        uint256 credits = CREDIT_UNIT;
+        s.completionCredits += credits;
+        _totalCreditsDisbursed += credits;
+        emit CompletionCredited(user, sessionId, credits);
+    }
+
