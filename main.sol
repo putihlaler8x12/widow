@@ -180,3 +180,17 @@ contract Widow {
     }
 
     function getSession(uint256 sessionId) external view returns (
+        address user,
+        uint256 createdAtBlock,
+        uint256 suggestionCount,
+        uint256 completionCredits,
+        uint256 contextTokens,
+        uint256 hintsClaimed,
+        bool closed
+    ) {
+        SessionRecord storage s = _sessions[sessionId];
+        return (
+            s.user,
+            s.createdAtBlock,
+            s.suggestionCount,
+            s.completionCredits,
