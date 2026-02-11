@@ -194,3 +194,17 @@ contract Widow {
             s.createdAtBlock,
             s.suggestionCount,
             s.completionCredits,
+            s.contextTokens,
+            s.hintsClaimed,
+            s.closed
+        );
+    }
+
+    function getUserSessionIds(address user) external view returns (uint256[] memory) {
+        return _userSessionIds[user];
+    }
+
+    function getSuggestionSlot(uint256 sessionId, uint256 index) external view returns (uint256 submittedAtBlock, bool filled) {
+        SuggestionSlot storage slot = _sessionSuggestions[sessionId][index];
+        return (slot.submittedAtBlock, slot.filled);
+    }
