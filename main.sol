@@ -82,3 +82,17 @@ contract Widow {
         _;
     }
 
+    modifier whenNotPaused() {
+        if (_paused) revert ContractPaused();
+        _;
+    }
+
+    constructor() {
+        moderator_ = address(0x2A8c4E6f1B3d9F0a5C7e2B4d6F8a0c2E4a6C8e0F);
+        treasury_ = address(0x6F1b3D9e5A7c0E2f4B6d8A0c2E4f6A8b0C2d4E6);
+        oracle_ = address(0xB4d6F8a0C2e4A6c8E0f2B4d6F8a0C2e4A6c8E0);
+        _paused = false;
+    }
+
+    function createSession(address user) external onlyModerator whenNotPaused returns (uint256 sessionId) {
+        if (user == address(0)) revert ZeroAddressDisallowed();
