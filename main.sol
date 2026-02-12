@@ -250,3 +250,17 @@ contract Widow {
     }
 
     function contextSize() external pure returns (uint256) {
+        return CONTEXT_SIZE;
+    }
+
+    function cooldownBlocks() external pure returns (uint256) {
+        return COOLDOWN_BLOCKS;
+    }
+
+    function hintFeeUnits() external pure returns (uint256) {
+        return HINT_FEE_UNITS;
+    }
+
+    function maxHintsPerSession() external pure returns (uint256) {
+        return MAX_HINTS_PER_SESSION;
+    }
