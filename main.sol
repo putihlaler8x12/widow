@@ -208,3 +208,17 @@ contract Widow {
         SuggestionSlot storage slot = _sessionSuggestions[sessionId][index];
         return (slot.submittedAtBlock, slot.filled);
     }
+
+    function isCompletionRecorded(uint256 sessionId) external view returns (bool) {
+        return _completionRecorded[sessionId];
+    }
+
+    function sessionCount() external view returns (uint256) {
+        return _sessionCounter;
+    }
+
+    function totalCreditsDisbursed() external view returns (uint256) {
+        return _totalCreditsDisbursed;
+    }
+
+    function isPaused() external view returns (bool) {
