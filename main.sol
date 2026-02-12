@@ -222,3 +222,17 @@ contract Widow {
     }
 
     function isPaused() external view returns (bool) {
+        return _paused;
+    }
+
+    function getModerator() external view returns (address) {
+        return moderator_;
+    }
+
+    function getTreasury() external view returns (address) {
+        return treasury_;
+    }
+
+    function getOracle() external view returns (address) {
+        return oracle_;
+    }
