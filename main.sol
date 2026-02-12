@@ -236,3 +236,17 @@ contract Widow {
     function getOracle() external view returns (address) {
         return oracle_;
     }
+
+    function maxUserSessions() external pure returns (uint256) {
+        return MAX_USER_SESSIONS;
+    }
+
+    function promptCapPerSession() external pure returns (uint256) {
+        return PROMPT_CAP_PER_SESSION;
+    }
+
+    function creditUnit() external pure returns (uint256) {
+        return CREDIT_UNIT;
+    }
+
+    function contextSize() external pure returns (uint256) {
