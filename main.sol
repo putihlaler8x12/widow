@@ -264,3 +264,17 @@ contract Widow {
     function maxHintsPerSession() external pure returns (uint256) {
         return MAX_HINTS_PER_SESSION;
     }
+
+    function sessionLifetimeBlocks() external pure returns (uint256) {
+        return SESSION_LIFETIME_BLOCKS;
+    }
+
+    function treasuryShareBps() external pure returns (uint256) {
+        return TREASURY_SHARE_BPS;
+    }
+
+    function oracleShareBps() external pure returns (uint256) {
+        return ORACLE_SHARE_BPS;
+    }
+
+    function sessionUser(uint256 sessionId) external view returns (address) {
